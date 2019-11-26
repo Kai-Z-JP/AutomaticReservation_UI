@@ -58,8 +58,12 @@ namespace AutomaticReservation_UI.Common
         /// <returns></returns>
         public static string DecryptFromBase64(string base64Text, byte[] key, byte[] iv)
         {
-            // Base64文字列をバイト型配列に変換
-            byte[] src = Convert.FromBase64String(base64Text);
+            if (base64Text.Equals("YOUR_PASSWORD_ENCRYPTED"))
+            {
+                return "";
+            }
+                // Base64文字列をバイト型配列に変換
+                byte[] src = Convert.FromBase64String(base64Text);
 
             // Decryptor（復号器）を用意する
             using (var am = new AesManaged())

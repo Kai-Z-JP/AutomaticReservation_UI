@@ -325,8 +325,12 @@ namespace AutomaticReservation_UI.ViewModel
                 {
                     // オブジェクトを渡して
                     ProcFormat = FinderProcessFormat,
-                    CancelToken = CancelToken,
+                    CancelToken = CancelToken
                 };
+                if (model == null)
+                {
+                    Console.WriteLine("null");
+                }
                 try
                 {
                     model.PropertyChanged += OnListenerPropertyChanged;

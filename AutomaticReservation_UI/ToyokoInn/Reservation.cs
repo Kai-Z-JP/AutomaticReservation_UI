@@ -75,7 +75,7 @@ namespace AutomaticReservation_UI.ToyokoInn
             log.Debug(String.Format("> チェックイン：{0}", ProcFormat.CheckinDate.ToString("yyyy/MM/dd")));
 
             // ログのファイル数を管理
-            FileManager.RemoveFileObsolete(String.Format(@"{0}\AutomaticReservation_UI\log", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)), "log", _logConfig.MaxLogCount);
+            //FileManager.RemoveFileObsolete(String.Format(@"{0}\AutomaticReservation_UI\log", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)), "log", _logConfig.MaxLogCount);
 
             log.Debug("ドライバ初期化中");
             Message = "ドライバ初期化中";
@@ -109,6 +109,8 @@ namespace AutomaticReservation_UI.ToyokoInn
                 }
                 #endregion
 
+                ExecutionState.DisableSuspend();
+
                 #region 無限ループ
                 while (true)
                 {
@@ -119,9 +121,9 @@ namespace AutomaticReservation_UI.ToyokoInn
                         log.Debug(String.Format("継続回数：{0}", Count));
 
                         // 予約ページへ
-                        log.Debug(String.Format("予約ページへ移動中：{0}", String.Format("{0}search/reserve/room?chckn_date={1}&room_type={2}", SiteConfig.BASE_URL, ProcFormat.CheckinDate.ToShortDateString(), ProcFormat.Type.RoomTypeID.ToString())));
+                        log.Debug(String.Format("予約ページへ移動中：{0}", String.Format("{0}search/reserve/room?chckn_date={1}&room_type={2}", SiteConfig.BASE_URL, ProcFormat.CheckinDate.ToString("yyyy/MM/dd"), ProcFormat.Type.RoomTypeID.ToString())));
                         Message = "予約ページへ移動中";
-                        driver.Url = String.Format("{0}search/reserve/room?chckn_date={1}&room_type={2}", SiteConfig.BASE_URL, ProcFormat.CheckinDate.ToShortDateString(), ProcFormat.Type.RoomTypeID.ToString());
+                        driver.Url = String.Format("{0}search/reserve/room?chckn_date={1}&room_type={2}", SiteConfig.BASE_URL, ProcFormat.CheckinDate.ToString("yyyy/MM/dd"), ProcFormat.Type.RoomTypeID.ToString());
                         if (CheckCancel())
                         {
                             log.Debug("キャンセルされました");
